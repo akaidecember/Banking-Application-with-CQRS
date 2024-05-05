@@ -8,6 +8,7 @@ This project is a Java-based implementation of a Banking System using CQRS (Comm
 - [Features](#features)
 - [Requirements](#requirements)
 - [Usage](#usage)
+- [API_Endpoints](#api_endpoints)
 - [Notes](#notes)
 
 ## Introduction
@@ -98,8 +99,57 @@ The java files and the configuration files are set according the the file struct
 - Ensure your `docker-compose.yml` file is configured to build the Docker images based on the Dockerfiles present in each Maven module. The typical structure includes defining services that specify the context and Dockerfile locations.
 - The `docker-compose.yml` file should define all necessary services, networks, and volumes to ensure the components can communicate and persist data as required.
 
+## API_Endpoints
+
+Below are the defined endpoints for account management operations and querying account data.
+
+### Account Command Service
+
+The Account Command service handles direct operations on accounts such as opening, depositing, withdrawing, and closing accounts.
+
+- **Open an Account**
+  - **Endpoint:** `/api/v1/accounts`
+  - **Method:** POST
+  - **Description:** Create a new account.
+
+- **Deposit Funds**
+  - **Endpoint:** `/api/v1/accounts/{id}/deposit`
+  - **Method:** PUT
+  - **Description:** Deposit funds into an existing account specified by its unique ID.
+
+- **Withdraw Funds**
+  - **Endpoint:** `/api/v1/accounts/{id}/withdraw`
+  - **Method:** PUT
+  - **Description:** Withdraw funds from an existing account specified by its unique ID.
+
+- **Close an Account**
+  - **Endpoint:** `/api/v1/accounts/{id}`
+  - **Method:** DELETE
+  - **Description:** Close an existing account specified by its unique ID.
+
+- **Restore Read Database**
+  - **Endpoint:** `/api/v1/operations/database/restore`
+  - **Method:** POST
+  - **Description:** Restore the read database to sync with the current state of the accounts.
+
+### Account Query Service
+
+The Account Query service provides endpoints for retrieving information about accounts.
+
+- **List of All Accounts**
+  - **Endpoint:** `/api/v1/accounts`
+  - **Method:** GET
+  - **Description:** Retrieve a list of all accounts.
+
+- **List Account Details**
+  - **Endpoint:** `/api/v1/accounts/{id}`
+  - **Method:** GET
+  - **Description:** Retrieve details of a specific account by its unique ID.
+
 ## Notes
 
 * All the files are generated using SpringBoot.
 * Both the directories bank-account and cqrs-es need to be present in the same directory to compile.
 * Ideally, you can use intelliJ as it will be able to configure the project on it's own as all files are provided.
+* This project has been created with the help of the course Java Microservices: CQRS & Event Sourcing with Kafka
+ by Sean Campbell at Udemy.
